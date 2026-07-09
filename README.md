@@ -2,9 +2,9 @@
 
 یک **Deep Agent** که با گرفتن یک ایده‌ی محصول (به فارسی)، به‌صورت خودکار تحلیل نیاز،
 سیستم طراحی، برندینگ، مشخصات کامپوننت، انیمیشن، کد Next.js/TypeScript/Tailwind (RTL و
-فارسی) و بازبینی کد را تولید می‌کند — دقیقاً طبق [00-Soal/DeepAgent.md](00-Soal/DeepAgent.md).
-
-## معماری
+فارسی) و بازبینی کد را تولید می‌کند 
+##
+معماری
 
 پایپ‌لاین با **LangGraph** پیاده‌سازی شده: هشت Agent + چهار Skill، هر کدام مسئولیت مشخصی دارند
 و توسط یک Coordinator هماهنگ می‌شوند.
@@ -97,11 +97,10 @@ npm run dev
 - `/plan` — نمایش Todo Plan فعلی
 - `/memory` — نمایش تصمیمات ثبت‌شده در Memory
 - `/skills` — لیست Skill های موجود
-- `/resume <slug>` — بارگذاری یک پروژه‌ی قبلی از `workspace/`
+- `/resume <slug>` — بارگذاری یک پروژه‌ قبلی از `workspace/`
 - `/exit` — خروج
 
 ## افزودن یک Skill جدید
-
-یک فایل در `deepagent/skills/` بساز که از `Skill` (در `deepagent/skills/base.py`) ارث‌بری
+یک فایل در `deepagent/skills/` بساز که از `Skill` (در `deepagent/skills/base.py`) استفاده 
 می‌کند، `stage` را روی یکی از مراحل `deepagent/planning.py` تنظیم کن، منطق را در `run()`
 بنویس و در انتهای فایل `register(YourSkill())` را صدا بزن. نیازی به تغییر بقیه معماری نیست.
