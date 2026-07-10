@@ -56,7 +56,14 @@ def _skills_node(stage_id, llm, workspace, memory):
                 logs.append(f"Skill '{skill.name}' با خطا مواجه شد: {exc}")
         updates: dict = {"logs": logs}
         if extra_issues:
-            updates["review_notes"] = (state.get("review_notes") or []) + extra_issues
+            combined_notes = (state.get("review_notes") or []) + extra_issues
+            updates["review_notes"] = combined_notes
+            # A skill (e.g. build_check_skill) can find its own high-severity issues
+            # *after* code_review.run already decided review_passed -- without
+            # recomputing it here, _should_fix would never see them and the fix loop
+            # would silently never trigger for skill-discovered problems.
+            if any(i.get("severity") == "high" for i in extra_issues):
+                updates["review_passed"] = not any(i.get("severity") == "high" for i in combined_notes)
         return updates
 
     return node
